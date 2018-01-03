@@ -2,6 +2,8 @@ FROM alpine:3.6
 
 ENV SERVER_ADDR     0.0.0.0
 ENV SERVER_PORT     61348
+ENV LOCAL_ADDR      0.0.0.0
+ENV LOCAL_PORT      1080
 ENV PASSWORD        psw
 ENV METHOD          aes-128-ctr
 ENV PROTOCOL        auth_aes128_md5
@@ -28,6 +30,5 @@ RUN mkdir -p $WORK && \
 WORKDIR $WORK/shadowsocksr-$BRANCH/shadowsocks
 
 
-EXPOSE $SERVER_PORT
-CMD python server.py -p $SERVER_PORT -k $PASSWORD -m $METHOD -O $PROTOCOL -o $OBFS -G $PROTOCOLPARAM -t $TIMEOUT --fast-open $OPTIONS
-
+EXPOSE $LOCAL_PORT
+CMD python local.py -s $SERVER_ADDR -p $SERVER_PORT -b $LOCAL_ADDR -l $LOCAL_PORT -k $PASSWORD -m $METHOD -O $PROTOCOL -o $OBFS -G $PROTOCOLPARAM -t $TIMEOUT --fast-open $OPTIONS
