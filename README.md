@@ -1,0 +1,2 @@
+# shadowsocksr
+shadowsocksr in docker
