@@ -10,6 +10,11 @@ ENV OBFS            tls1.2_ticket_auth_compatible
 ENV TIMEOUT         300
 ENV DNS_ADDR        8.8.8.8
 ENV DNS_ADDR_2      8.8.4.4
+ENV TRANSFER        50
+ENV FORBID          "25,465,233~266"
+ENV speed_limit_per_con 300
+ENV speed_limit_per_user    1000
+
 ENV OPTIONS         -v
 
 ARG BRANCH=manyuser
@@ -29,5 +34,5 @@ WORKDIR $WORK/shadowsocksr-$BRANCH/shadowsocks
 
 
 EXPOSE $SERVER_PORT
-CMD python server.py -p $SERVER_PORT -k $PASSWORD -m $METHOD -O $PROTOCOL -o $OBFS -G $PROTOCOLPARAM -t $TIMEOUT --fast-open $OPTIONS
+CMD python server.py -p $SERVER_PORT -k $PASSWORD -m $METHOD -O $PROTOCOL -o $OBFS -G $PROTOCOLPARAM -t $TIMEOUT -s speed_limit_per_con -f $FORBID --fast-open $OPTIONS
 
